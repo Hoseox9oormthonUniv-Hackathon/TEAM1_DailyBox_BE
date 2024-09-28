@@ -1,12 +1,12 @@
 package com.team1.DailyBox.domain;
 
 public enum EmojiType {
-	CUP,
+	WATER,
 	PILL,
 	DOG,
-	BOOK,
-	DUMBBELL,
-	RUN,
-	FOOD,
-	GITHUB
+	READ,
+	EXERCISE,
+	WALK,
+	EAT,
+	GIT
 }
