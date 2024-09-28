@@ -9,6 +9,6 @@ import com.team1.DailyBox.domain.Box;
 
 @Repository
 public interface JpaBoxRepository extends JpaRepository<Box,Long> {
-	List<Box> findAllByUserId(Long userId);
+	List<Box> findAllById(Long id);
 
 }
