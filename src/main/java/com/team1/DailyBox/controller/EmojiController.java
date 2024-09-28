@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team1.DailyBox.Service.EmojiService;
+import com.team1.DailyBox.service.EmojiService;
 import com.team1.DailyBox.domain.Emoji;
 import com.team1.DailyBox.dto.ApiResponse;
 import com.team1.DailyBox.dto.EmojiAddDto;
@@ -38,7 +38,6 @@ public class EmojiController {
 	public ResponseEntity<ApiResponse<String>> deleteEmoji(@PathVariable Long id){
 		emojiService.deleteEmoji(id);
 		return ResponseEntity.ok(new ApiResponse<>("이모지가 성공적으로 삭제되었습니다."));
-
 	}
 
 	// 이모지 수정 API
@@ -51,7 +50,7 @@ public class EmojiController {
 	// 이모지 카운트 되돌리기 (1 증가)
 	@PutMapping("/back-count/{id}")
 	public ResponseEntity<ApiResponse<String>> backCount(@PathVariable Long id) {
-		 emojiService.backCount(id);
+    emojiService.backCount(id);
 		return ResponseEntity.ok(new ApiResponse<>("이모지 카운트가 1 증가되었습니다."));
 	}
 
@@ -65,22 +64,19 @@ public class EmojiController {
 	// 해당주 ToDo 보여주기 (전체 보여주기)
 	@GetMapping("/week-emoji")
 	public ResponseEntity<ApiResponse<List<Emoji>>> showWeekEmoji() {
-		List<Emoji> weekEmojis = emojiService.showWeekEmoji();
-		return ResponseEntity.ok(new ApiResponse<>(weekEmojis, "해당 주의 이모지 목록이 조회되었습니다."));
+		return ResponseEntity.ok(new ApiResponse<>(emojiService.showWeekEmoji(), "해당 주의 이모지 목록이 조회되었습니다."));
 	}
 
 	// 완료 되지 않은 ToDo 보여주기
 	@GetMapping("/NotDone-emojis")
 	public ResponseEntity<ApiResponse<List<Emoji>>> showNotDoneEmojis(){
-		List<Emoji> notDoneEmojis = emojiService.getNotDoneEmojis();
-		return ResponseEntity.ok(new ApiResponse<>(notDoneEmojis, "완료 되지 않은 이모지 목록이 조회되었습니다."));
+		return ResponseEntity.ok(new ApiResponse<>(emojiService.getNotDoneEmojis(), "완료 되지 않은 이모지 목록이 조회되었습니다."));
 	}
 
 	// 금일 ToDo 보여주기
 	@GetMapping("/today-emoji")
 	public ResponseEntity<ApiResponse<List<Emoji>>> showTodayEmoji(){
-		List<Emoji> todayEmoji = emojiService.getTodayBox();
-		return ResponseEntity.ok(new ApiResponse<>(todayEmoji,"금일 이모지가 조회되었습니다."));
+		return ResponseEntity.ok(new ApiResponse<>(emojiService.getTodayBox(),"금일 이모지가 조회되었습니다."));
 	}
 
 }
