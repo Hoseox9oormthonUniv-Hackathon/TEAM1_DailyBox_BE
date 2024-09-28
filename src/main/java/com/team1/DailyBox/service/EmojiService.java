@@ -9,6 +9,8 @@ import com.team1.DailyBox.dto.EmojiAddDto;
 import com.team1.DailyBox.dto.EmojiUpdateDto;
 import com.team1.DailyBox.exception.CustomException;
 import com.team1.DailyBox.exception.ErrorCode;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +18,7 @@ import com.team1.DailyBox.repository.JpaEmojiRepository;
 
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class EmojiService {
@@ -88,6 +91,18 @@ public class EmojiService {
 		emoji.setCount(emoji.getCount() - 1);
 
 		jpaEmojiRepository.save(emoji);
+	}
+
+	// 새로운 주가 시작되면 ToDo 카운트 초기화
+	@Scheduled(cron = "0 0 0 * * MON", zone = "Asia/Seoul") // 매주 월요일 00시에 실행
+	@Transactional
+	public void resetEmojiCounts() {
+		List<Emoji> emojis = jpaEmojiRepository.findAll();
+		for (Emoji emoji : emojis) {
+			emoji.setCount(emoji.getGoalCount());
+			jpaEmojiRepository.save(emoji);
+		}
+		log.info("ToDo counts reset completed.");
 	}
 
 
