@@ -1,7 +1,7 @@
 package com.team1.DailyBox.domain;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,18 +18,20 @@ import lombok.*;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Box {
+public class Emoji {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "varchar(255)")
-	private DayType day;
+	private DayOfWeek day;
 
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "varchar(255)")
 	private ColorType color;
+
+	private int goalCount;
 
 	private int count;
 
@@ -37,8 +39,5 @@ public class Box {
 
 	@Enumerated(EnumType.STRING)
 	@Column(columnDefinition = "varchar(255)")
-	private EmojiType emoji;
-
-	private LocalDate date;
-
+	private EmojiType emojiType;
 }

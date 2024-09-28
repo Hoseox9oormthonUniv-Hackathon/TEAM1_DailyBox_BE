@@ -12,11 +12,10 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class BoxUpdateDto {
-	private EmojiType emoji;
+public class EmojiUpdateDto {
+	private EmojiType emojiType;
 	private String name;
 	private DayType day;
-	private int count;
+	private int goalCount;
 	private ColorType color;
-
 }
