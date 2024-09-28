@@ -1,4 +1,4 @@
-package com.team1.DailyBox.Service;
+package com.team1.DailyBox.service;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -7,6 +7,8 @@ import java.util.List;
 import com.team1.DailyBox.domain.Emoji;
 import com.team1.DailyBox.dto.EmojiAddDto;
 import com.team1.DailyBox.dto.EmojiUpdateDto;
+import com.team1.DailyBox.exception.CustomException;
+import com.team1.DailyBox.exception.ErrorCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,7 +43,7 @@ public class EmojiService {
 	@Transactional
 	public boolean deleteEmoji(Long emojiId){
 		Emoji emoji = jpaEmojiRepository.findById(emojiId)
-			.orElseThrow(() -> new IllegalArgumentException("Box not found with id: " + emojiId));
+			.orElseThrow(() -> new CustomException(ErrorCode.EMOJI_NOT_FOUND));
 		jpaEmojiRepository.delete(emoji);
 
 		return true;
@@ -51,9 +53,10 @@ public class EmojiService {
 	@Transactional
 	public boolean updateEmoji(EmojiUpdateDto emojiUpdateDto, Long emojiId){
 		Emoji emoji = jpaEmojiRepository.findById(emojiId)
-			.orElseThrow(() -> new IllegalArgumentException("Emoji의 아이디를 찾을 수 없습니다. : " + emojiId));
+			.orElseThrow(() -> new CustomException(ErrorCode.EMOJI_NOT_FOUND));
 
 		emoji.setName(emojiUpdateDto.getName());
+		emoji.setDay(emojiUpdateDto.getDay());
 		emoji.setGoalCount(emojiUpdateDto.getGoalCount());
 		emoji.setColor(emojiUpdateDto.getColor());
 
@@ -66,10 +69,13 @@ public class EmojiService {
 	@Transactional
 	public boolean backCount(Long id){
 		Emoji emoji = jpaEmojiRepository.findById(id)
-				.orElseThrow(() -> new IllegalArgumentException("Box의 아이디를 찾을 수 없습니다. : " + id));
-		emoji.setCount(emoji.getCount() + 1);
+				.orElseThrow(() -> new CustomException(ErrorCode.EMOJI_NOT_FOUND));
 
-		// count가 goalCount를 넘어가지 않도록 조건 처리 필요
+		// count가 goalCount를 넘어가지 않도록 조건 처리
+		if (emoji.getCount() + 1 > emoji.getGoalCount())
+			throw new CustomException(ErrorCode.COUNT_OVERFLOW);
+
+		emoji.setCount(emoji.getCount() + 1);
 
 		jpaEmojiRepository.save(emoji);
 
@@ -80,10 +86,13 @@ public class EmojiService {
 	@Transactional
 	public boolean downCount(Long id){
 		Emoji emoji = jpaEmojiRepository.findById(id)
-			.orElseThrow(() -> new IllegalArgumentException("Box의 아이디를 찾을 수 없습니다. : " + id));
-		emoji.setCount(emoji.getCount() - 1);
+			.orElseThrow(() -> new CustomException(ErrorCode.EMOJI_NOT_FOUND));
 
-		// count가 0 밑으로 내려가지 않도록 조건 처리 필요
+		// count가 0 밑으로 내려가지 않도록 조건 처리
+		if (emoji.getCount() - 1 < 0)
+			throw new CustomException(ErrorCode.COUNT_ALREADY_DONE);
+
+		emoji.setCount(emoji.getCount() - 1);
 
 		jpaEmojiRepository.save(emoji);
 
