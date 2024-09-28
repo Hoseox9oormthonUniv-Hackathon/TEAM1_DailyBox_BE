@@ -13,9 +13,9 @@ import com.team1.DailyBox.domain.Emoji;
 public interface JpaEmojiRepository extends JpaRepository<Emoji,Long> {
 //	Emoji findById(Long emojiId);
 
-	List<Emoji> findAllByDay(DayOfWeek day);
-
-	@Query("SELECT e FROM Emoji e WHERE e.count > 0")
-	List<Emoji> findAllWithCountGreaterThanZero();
+//	List<Emoji> findAllByDay(DayOfWeek day);
+//
+//	@Query("SELECT e FROM Emoji e WHERE e.count > 0")
+//	List<Emoji> findAllWithCountGreaterThanZero();
 
 }

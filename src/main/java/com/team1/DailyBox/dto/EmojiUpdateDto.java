@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.DayOfWeek;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -16,7 +17,7 @@ import java.time.DayOfWeek;
 public class EmojiUpdateDto {
 	private EmojiType emojiType;
 	private String name;
-	private DayOfWeek day;
+	private List<DayOfWeek> days;
 	private int goalCount;
 	private ColorType color;
 }
