@@ -8,6 +8,4 @@ public enum DayType {
 	FRI,
 	SAT,
 	SUN
-
-
 }

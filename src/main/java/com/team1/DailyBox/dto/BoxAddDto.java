@@ -3,6 +3,9 @@ package com.team1.DailyBox.dto;
 import java.time.LocalDate;
 
 import com.team1.DailyBox.domain.Box;
+import com.team1.DailyBox.domain.ColorType;
+import com.team1.DailyBox.domain.DayType;
+import com.team1.DailyBox.domain.EmojiType;
 
 import com.team1.DailyBox.domain.ColorType;
 import com.team1.DailyBox.domain.DayType;

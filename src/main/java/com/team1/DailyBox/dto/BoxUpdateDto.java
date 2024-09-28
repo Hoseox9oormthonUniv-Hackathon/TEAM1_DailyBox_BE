@@ -3,6 +3,7 @@ package com.team1.DailyBox.dto;
 import com.team1.DailyBox.domain.ColorType;
 import com.team1.DailyBox.domain.DayType;
 import com.team1.DailyBox.domain.EmojiType;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

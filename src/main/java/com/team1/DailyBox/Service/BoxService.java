@@ -83,17 +83,23 @@ public class BoxService {
 	// 해당주 ToDo 보여주기
 	@Transactional
 	public List<Box> showWeekEmoji(Long id, LocalDate selectedDate) {
-		// 1. 주어진 id로 Box 리스트를 조회
 		List<Box> userBoxes = jpaBoxRepository.findAllByUserId(id);
 
-		// 2. 해당 주의 시작(월요일)과 끝(일요일) 날짜 계산
-		LocalDate startOfWeek = selectedDate.with(DayOfWeek.MONDAY); // 선택된 주의 월요일
-		LocalDate endOfWeek = selectedDate.with(DayOfWeek.SUNDAY);   // 선택된 주의 일요일
+		LocalDate startOfWeek = selectedDate.with(DayOfWeek.MONDAY);
+		LocalDate endOfWeek = selectedDate.with(DayOfWeek.SUNDAY);
 
-		// 3. 날짜 필터링: 선택한 주에 해당하는 Box들만 필터링
 		return userBoxes.stream()
 			.filter(box -> !box.getDate().isBefore(startOfWeek) && !box.getDate().isAfter(endOfWeek))
 			.collect(Collectors.toList());
+	}
+
+	// 금일 ToDo 보여주기
+	@Transactional
+	public List<Box> todayBox(Long userId) {
+		LocalDate today = LocalDate.now();
+		List<Box> todayBoxes = jpaBoxRepository.findAllByUserIdAndDate(userId, today);
+
+		return todayBoxes;
 	}
 
 }
