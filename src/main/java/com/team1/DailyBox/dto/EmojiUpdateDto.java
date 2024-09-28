@@ -1,5 +1,9 @@
 package com.team1.DailyBox.dto;
 
+import com.team1.DailyBox.domain.ColorType;
+import com.team1.DailyBox.domain.DayType;
+import com.team1.DailyBox.domain.EmojiType;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,10 +14,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EmojiUpdateDto {
 	private Long id;
-	private String emoji;
+	private EmojiType emoji;
 	private String name;
-	private String day;
+	private DayType day;
 	private int count;
-	private String color;
+	private ColorType color;
 
 }

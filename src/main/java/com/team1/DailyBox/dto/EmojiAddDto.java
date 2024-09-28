@@ -3,6 +3,9 @@ package com.team1.DailyBox.dto;
 import java.time.LocalDate;
 
 import com.team1.DailyBox.domain.Box;
+import com.team1.DailyBox.domain.ColorType;
+import com.team1.DailyBox.domain.DayType;
+import com.team1.DailyBox.domain.EmojiType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,11 +17,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class EmojiAddDto {
 	private Long id;
-	private String emoji;
+	private EmojiType emoji;
 	private String name;
-	private String day;
+	private DayType day;
 	private int count;
-	private String color;
+	private ColorType color;
 	private LocalDate date;
 
 	public Box toEntity() {
