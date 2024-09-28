@@ -3,6 +3,7 @@ package com.team1.DailyBox.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,7 +35,7 @@ public class EmojiController {
 	}
 
 	// 이모지 삭제
-	@PostMapping("/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<ApiResponse<String>> deleteEmoji(@PathVariable Long id){
 		emojiService.deleteEmoji(id);
 		return ResponseEntity.ok(new ApiResponse<>("이모지가 성공적으로 삭제되었습니다."));
