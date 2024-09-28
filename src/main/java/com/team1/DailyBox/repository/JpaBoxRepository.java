@@ -13,5 +13,4 @@ public interface JpaBoxRepository extends JpaRepository<Box,Long> {
 	List<Box> findAllByUserId(Long userId);
 	List<Box> findAllByUserIdAndDate(Long userId, LocalDate date);
 
-
 }
