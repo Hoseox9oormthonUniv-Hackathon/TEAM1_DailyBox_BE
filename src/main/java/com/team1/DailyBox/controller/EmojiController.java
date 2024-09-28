@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team1.DailyBox.Service.EmojiService;
+import com.team1.DailyBox.service.EmojiService;
 import com.team1.DailyBox.domain.Emoji;
 import com.team1.DailyBox.dto.ApiResponse;
 import com.team1.DailyBox.dto.EmojiAddDto;
@@ -34,7 +34,7 @@ public class EmojiController {
 	}
 
 	// 이모지 삭제
-	@PostMapping("/delete")
+	@PostMapping("/delete/{id}")
 	public ResponseEntity<ApiResponse<String>> deleteEmoji(@PathVariable Long id){
 		emojiService.deleteEmoji(id);
 		return ResponseEntity.ok(new ApiResponse<>("이모지가 성공적으로 삭제되었습니다."));
