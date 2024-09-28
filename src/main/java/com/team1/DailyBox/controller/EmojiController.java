@@ -50,7 +50,7 @@ public class EmojiController {
 	// 이모지 카운트 되돌리기 (1 증가)
 	@PutMapping("/back-count/{id}")
 	public ResponseEntity<ApiResponse<String>> backCount(@PathVariable Long id) {
-		emojiService.backCount(id);
+    emojiService.backCount(id);
 		return ResponseEntity.ok(new ApiResponse<>("이모지 카운트가 1 증가되었습니다."));
 	}
 

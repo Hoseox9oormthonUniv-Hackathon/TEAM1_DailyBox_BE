@@ -23,7 +23,7 @@ public class EmojiService {
 
 	// 이모지 추가
 	@Transactional
-	public boolean addEmoji(EmojiAddDto emojiAddDto){
+	public void addEmoji(EmojiAddDto emojiAddDto){
 		List<DayOfWeek> days = emojiAddDto.getDays();
 		for (DayOfWeek day : days) {
 			Emoji emoji = Emoji.builder()
@@ -36,22 +36,19 @@ public class EmojiService {
 					.build();
 			jpaEmojiRepository.save(emoji);
 		}
-		return true;
 	}
 
 	// 이모지 삭제
 	@Transactional
-	public boolean deleteEmoji(Long emojiId){
+	public void deleteEmoji(Long emojiId){
 		Emoji emoji = jpaEmojiRepository.findById(emojiId)
 			.orElseThrow(() -> new CustomException(ErrorCode.EMOJI_NOT_FOUND));
 		jpaEmojiRepository.delete(emoji);
-
-		return true;
 	}
 
 	// 이모지 수정
 	@Transactional
-	public boolean updateEmoji(EmojiUpdateDto emojiUpdateDto, Long emojiId){
+	public void updateEmoji(EmojiUpdateDto emojiUpdateDto, Long emojiId){
 		Emoji emoji = jpaEmojiRepository.findById(emojiId)
 			.orElseThrow(() -> new CustomException(ErrorCode.EMOJI_NOT_FOUND));
 
@@ -61,13 +58,11 @@ public class EmojiService {
 		emoji.setColor(emojiUpdateDto.getColor());
 
 		jpaEmojiRepository.save(emoji);
-
-		return true;
 	}
 
 	// 되돌리기(카운트 늘리기)
 	@Transactional
-	public boolean backCount(Long id){
+	public void backCount(Long id){
 		Emoji emoji = jpaEmojiRepository.findById(id)
 				.orElseThrow(() -> new CustomException(ErrorCode.EMOJI_NOT_FOUND));
 
@@ -78,13 +73,11 @@ public class EmojiService {
 		emoji.setCount(emoji.getCount() + 1);
 
 		jpaEmojiRepository.save(emoji);
-
-		return true;
 	}
 
 	// 카운드 줄이기
 	@Transactional
-	public boolean downCount(Long id){
+	public void downCount(Long id){
 		Emoji emoji = jpaEmojiRepository.findById(id)
 			.orElseThrow(() -> new CustomException(ErrorCode.EMOJI_NOT_FOUND));
 
@@ -95,8 +88,6 @@ public class EmojiService {
 		emoji.setCount(emoji.getCount() - 1);
 
 		jpaEmojiRepository.save(emoji);
-
-		return true;
 	}
 
 
